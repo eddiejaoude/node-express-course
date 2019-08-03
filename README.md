@@ -7,6 +7,6 @@ This is a reference for the NodeJS and Express intro tutorial. Using this, you c
 ## Setup
 
 1. Download or clone this repo
-2. Install Depandancies: npm install
-3. Navigate to the root directory
+2. Navigate to the root directory
+3. Install Depandancies: npm install
 4. Start the server file: node server.js
