@@ -46,6 +46,5 @@ app.post('/login',function(req,res){
 	}
 
 })
-// admin route is protected by checking token in middleware
 
 app.listen(8000,function(){console.log('server is listening')})
