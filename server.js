@@ -13,19 +13,33 @@ const mockUserData = [{
         name: "Jill"
     },
 ];
+//added message and status
+let function_message = '';
+let test_status = false;
+const message = 'successfully got users. Nice!';
+const status = true;
+
 app.get("/users/:id", function (req, res) {
-    res.json({
-        success: true,
-        message: "successfully got users. Nice!",
-        id: req.params.id,
-        user: mockUserData.find((user) => user.id == req.params.id),
-    });
+    if (mockUserData.find((user) => user.id == req.params.id)) {
+        res.json({
+            success: status,
+            message: message,
+            user: mockUserData.find((user) => user.id == req.params.id)
+        });
+    } else {
+        id = req.params.id;
+        function_message = `Sorry user doesn't exist for the id ${id}`;
+        res.json({
+            success: test_status,
+            message: function_message
+        });
+    }
 });
 
 app.get("/users", function (req, res) {
     res.json({
-        success: true,
-        message: "successfully got users. Nice!",
+        success: status,
+        message: message,
         id: req.params.id,
         users: mockUserData,
     });
@@ -40,13 +54,13 @@ app.post("/login", function (req, res) {
 
     if (username === mockUsername && password === mockPassword) {
         res.json({
-            success: true,
+            success: status,
             message: "password and username match!",
             token: "encrypted token goes here",
         });
     } else {
         res.json({
-            success: false,
+            success: test_status,
             message: "password and username do not match",
         });
     }
