@@ -14,8 +14,7 @@ const mockUserData = [{
     },
 ];
 //added message and status
-let function_message = '';
-let test_status = false;
+let testStatus = false;
 const message = 'successfully got users. Nice!';
 const status = true;
 
@@ -28,10 +27,9 @@ app.get("/users/:id", function (req, res) {
         });
     } else {
         id = req.params.id;
-        function_message = `Sorry user doesn't exist for the id ${id}`;
         res.json({
-            success: test_status,
-            message: function_message
+            success: testStatus,
+            message: `Sorry user doesn't exist for the id ${id}`
         });
     }
 });
@@ -60,7 +58,7 @@ app.post("/login", function (req, res) {
         });
     } else {
         res.json({
-            success: test_status,
+            success: testStatus,
             message: "password and username do not match",
         });
     }
