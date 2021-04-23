@@ -38,7 +38,6 @@ app.get("/users", function (req, res) {
     res.json({
         success: status,
         message: message,
-        id: req.params.id,
         users: mockUserData,
     });
 });
