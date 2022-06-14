@@ -4,32 +4,33 @@ const app = express();
 
 app.use(express.json());
 
-const mockUserData = [{
-        id: 1,
-        name: "Mark"
-    },
-    {
-        id: 2,
-        name: "Jill"
-    },
-];
+const mockUserData = new Map();
+mockUserData.set(1, { id: 1, name: "Mark" });
+mockUserData.set(2, { id: 2, name: "Jill" });
+
+//Preprocess map to an array, so endpoint "/users" does not require computation. 
+const mockUserDataArr = Array.from(mockUserData, ([key, value]) => {
+    return { [key]: value };
+});
+
 //added message and status
 let testStatus = false;
 const message = 'successfully got users. Nice!';
 const status = true;
 
 app.get("/users/:id", function (req, res) {
-    if (mockUserData.find((user) => user.id == req.params.id)) {
+    let userId = Number(req.params.id);
+
+    if (mockUserData.has(userId)) {
         res.json({
             success: status,
             message: message,
-            user: mockUserData.find((user) => user.id == req.params.id)
+            user: mockUserData.get(userId)
         });
     } else {
-        id = req.params.id;
         res.json({
             success: testStatus,
-            message: `Sorry user doesn't exist for the id ${id}`
+            message: `Sorry user doesn't exist for the id ${userId}`
         });
     }
 });
@@ -38,7 +39,7 @@ app.get("/users", function (req, res) {
     res.json({
         success: status,
         message: message,
-        users: mockUserData,
+        users: mockUserDataArr,
     });
 });
 
@@ -58,7 +59,7 @@ app.post("/login", function (req, res) {
     } else {
         res.json({
             success: testStatus,
-            message: "password and username do not match",
+            message: "password and username do not match"
         });
     }
 });
